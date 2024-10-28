@@ -10,7 +10,7 @@ import { EventsComponent } from './events-component'
 import { GalleryComponent } from './gallery-component'
 import { LearningOutreachComponent } from './learning-outreach-component'
 import { IndianCultureComponent } from './indian-culture-component'
-import { Language, translations } from '../lib/translations'
+import { Language, useTranslations } from '../lib/translations'
 
 
 type Message = {
@@ -41,7 +41,7 @@ export const Main =() => {
     }
   }, [isOpen, hasBeenClosed])
 
-  const t = (key: keyof typeof translations.en) => translations[language][key]
+  const t = useTranslations(language)
 
   const addMessage = (content: string, sender: 'user' | 'bot') => {
     setMessages(prev => [...prev, { content, sender }])
