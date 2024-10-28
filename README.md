@@ -14,6 +14,7 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or else visit (https://purushottam2256.github.io/museum-chatbot/)
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
