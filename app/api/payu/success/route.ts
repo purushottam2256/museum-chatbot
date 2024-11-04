@@ -16,10 +16,10 @@ export async function POST(request: Request) {
   if (status === 'success') {
     console.log('Payment successful:', { txnid, amount, productinfo, firstname, email, mihpayid })
   
-    return NextResponse.redirect(new URL('/booking/success', request.url))
+    return NextResponse.redirect(new URL('/booking/success', request.url || 'http://localhost'))
   } else {
 
     console.error('Unexpected payment status:', status)
-    return NextResponse.redirect(new URL('/booking/error', request.url))
+    return NextResponse.redirect(new URL('/booking/error', request.url || 'http://localhost'))
   }
 }

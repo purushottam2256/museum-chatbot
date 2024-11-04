@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { MessageCircle } from 'lucide-react'
-import { BookingComponent } from './booking-component'
+import BookingComponent from './booking-component'
 import { EventsComponent } from './events-component'
 import { GalleryComponent } from './gallery-component'
 import { LearningOutreachComponent } from './learning-outreach-component'

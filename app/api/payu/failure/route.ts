@@ -12,5 +12,6 @@ export async function POST(request: Request) {
 
 
   console.log('Payment failed:', { txnid, amount, productinfo, firstname, email, error_Message })
-  return NextResponse.redirect(new URL('/booking/failure', request.url))
+  const failureUrl = new URL('/booking/failure', request.url || 'http://localhost')
+  return NextResponse.redirect(failureUrl)
 }

@@ -3,6 +3,7 @@
 export type Language = 'en' | 'hi'
 
 type TranslationKeys =
+//booking-component
   | 'welcomeMessage'
   | 'helpMessage'
   | 'bookingTickets'
@@ -61,7 +62,16 @@ type TranslationKeys =
   |'mainMenuPrompt'
   | 'mainMenuPrompt'
   | 'goBack'
-
+  |'backtopayment'
+//events-component
+  |'noEventsYet'
+  |'search'
+  |'searchPlaceholder'
+  |'errorFetchingEvents'
+  |'entityNotFound'
+  |'noEventsFound'
+  |'noDescription'
+  |'enterCity'
 
 export const translations: Record<Language, Record<TranslationKeys, string>> = {
   en: {
@@ -112,8 +122,6 @@ export const translations: Record<Language, Record<TranslationKeys, string>> = {
     noMuseumsFound: "No museums found",
     errorFetchingMuseums: "Error fetching museums",
     errorSearchingCities: "Error searching cities",
-    events: "Events",
-    eventsDescription: "Check out the latest events happening at the museum.",
     gallery: "Gallery",
     galleryDescription: "Explore the gallery of the museum.",
     culture: "Culture",
@@ -122,6 +130,18 @@ export const translations: Record<Language, Record<TranslationKeys, string>> = {
     learningDescription: "Discover educational resources and programs.",
     mainMenuPrompt: "What would you like to do?",
     goBack: "Go Back",
+    backtopayment: "Back to Payment",
+    noEventsYet: "No events yet", 
+    search: "Search", 
+    searchPlaceholder: "Search for events",
+    errorFetchingEvents: "Error fetching events",
+    entityNotFound: "Entity not found",
+    noEventsFound: "No events found",
+    noDescription: "No description available",
+    events: "Events",
+    eventsDescription: "Check out the latest events happening at the museum.",
+    enterCity: "Enter City",
+ 
 
   },
   hi: {
@@ -182,6 +202,16 @@ export const translations: Record<Language, Record<TranslationKeys, string>> = {
     learningDescription: "शैक्षिक संसाधनों और कार्यक्रमों की खोज करें।",
     mainMenuPrompt: "आप क्या करना चाहेंगे?",
     goBack: "वापस जाएं",
+    backtopayment: "भुगतान पर वापस जाएं",  
+    noEventsYet: "अब तक कोई आयोजन नहीं है",
+    search: "खोजें",
+    searchPlaceholder: "आयोजनों के लिए खोजें",
+    errorFetchingEvents: "आयोजनों को लाने में त्रुटि",
+    entityNotFound: "एंटिटी नहीं मिली",
+    noEventsFound: "कोई आयोजन नहीं मिला",
+    noDescription: "कोई विवरण उपलब्ध नहीं है",
+    enterCity: "शहर दर्ज करें",
+    
   }
 }
 

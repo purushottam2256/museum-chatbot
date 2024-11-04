@@ -10,7 +10,7 @@ export default function FailurePage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push('/?status=failure')
+      router.push('/payment?status=failure')
     }, 5000)
 
     return () => clearTimeout(timer)

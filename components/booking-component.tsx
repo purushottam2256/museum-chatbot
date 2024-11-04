@@ -33,7 +33,7 @@ type BookingDetails = {
   mobile: string
 }
 
-export const BookingComponent: React.FC<BookingComponentProps> = ({ language, addMessage, onComplete }) => {
+export default function Component({ language = 'en', addMessage = () => {}, onComplete = () => {} }: BookingComponentProps) {
   const [step, setStep] = useState<'city' | 'museum' | 'tickets' | 'details' | 'confirm' | 'payment' | 'ticket'>('city')
   const [bookingDetails, setBookingDetails] = useState<BookingDetails>({
     city: '',
@@ -391,7 +391,7 @@ export const BookingComponent: React.FC<BookingComponentProps> = ({ language, ad
                     <SelectValue placeholder={t('preferredTime')} />
                   </SelectTrigger>
                   <SelectContent>
-                    {['10:00 AM', '12:00 PM', '2:00  PM', '4:00 PM'].map(time => {
+                    {['10:00 AM', '12:00 PM', '2:00  PM', '4:00  PM'].map(time => {
                       const currentDate = new Date()
                       const selectedDate = new Date(bookingDetails.date)
                       const isPastTime = selectedDate.toDateString() === currentDate.toDateString() && time <= currentDate.toTimeString().slice(0, 5)

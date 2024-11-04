@@ -74,46 +74,38 @@ export async function searchIndianCities(query: string): Promise<City[]> {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-   
-    const indianCities = await Promise.all(data.search.map(async (item: { id: string; label: string; description?: string }) => {
-      const isIndianCity = await checkIfIndianCity(item.id);
-      return isIndianCity ? {
-        id: item.id,
-        label: item.label,
-        description: item.description
-      } : null;
+    const cityIds = data.search.map((item: { id: string }) => item.id).join(' ');
+
+    const isIndianCityQuery = `
+      SELECT ?city WHERE {
+        VALUES ?city { ${cityIds.split(' ').map((id: string) => `wd:${id}`).join(' ')} }
+        ?city wdt:P31/wdt:P279* wd:Q515;
+              wdt:P17 wd:Q668.
+      }
+    `;
+
+    const isIndianCityParams = new URLSearchParams({
+      query: isIndianCityQuery,
+      format: 'json'
+    });
+
+    const isIndianCityResponse = await fetch(`${WIKIDATA_SPARQL_ENDPOINT}?${isIndianCityParams}`);
+    if (!isIndianCityResponse.ok) {
+      throw new Error(`HTTP error! status: ${isIndianCityResponse.status}`);
+    }
+    const isIndianCityData = await isIndianCityResponse.json();
+    const indianCityIds = new Set(isIndianCityData.results.bindings.map((item: { city: { value: string } }) => item.city.value.split('/').pop()));
+
+    const indianCities = data.search.filter((item: { id: string }) => indianCityIds.has(item.id)).map((item: { id: string; label: string; description?: string }) => ({
+      id: item.id,
+      label: item.label,
+      description: item.description
     }));
 
-    return indianCities.filter((city): city is City => city !== null);
+    return indianCities;
   } catch (error) {
     console.error('Error searching Indian cities:', error);
     throw error;
-  }
-}
-
-async function checkIfIndianCity(entityId: string): Promise<boolean> {
-  const query = `
-    ASK {
-      wd:${entityId} wdt:P31/wdt:P279* wd:Q515.
-      wd:${entityId} wdt:P17 wd:Q668.
-    }
-  `;
-
-  const params = new URLSearchParams({
-    query: query,
-    format: 'json'
-  });
-
-  try {
-    const response = await fetch(`${WIKIDATA_SPARQL_ENDPOINT}?${params}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data.boolean;
-  } catch (error) {
-    console.error('Error checking if entity is an Indian city:', error);
-    return false;
   }
 }
 
